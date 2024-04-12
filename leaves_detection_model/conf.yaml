@@ -1,0 +1,8 @@
+#path: C:\Users\fabri\Desktop\Fabry\5 Uni\TESI\lm-thesis\object_detection\dataset
+path: RELATIVE_PATH_TO_dataset_FOLDER
+train: images/train
+val: images/val
+
+# Classes
+names:
+  0: leaf
