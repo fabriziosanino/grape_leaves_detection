@@ -18,7 +18,7 @@ from ultralyticsplus import YOLO
 </View>
 """
 
-MODEL_FILE_NAME = "best.pt"
+MODEL_FILE_NAME = "best_multiclass.pt"
 
 class NewModel(LabelStudioMLBase):
     """Custom ML Backend model
@@ -86,11 +86,13 @@ class NewModel(LabelStudioMLBase):
         path = self.get_local_path(task["data"]["image"], task_id=task["id"])
 
         model_results = self.model.predict(path)
+        print(model_results)
         results = []
         all_scores = []
 
-        i = 0
-        for row in model_results[0].boxes.xyxyn:
+
+        for i,row in enumerate(model_results[0].boxes.xyxyn):
+            label=model_results[0].names[int(model_results[0].boxes.cls[i].item())]
             score = float(model_results[0].boxes.conf[i].item())
             results.append(
               {
@@ -100,7 +102,7 @@ class NewModel(LabelStudioMLBase):
                   "type": "rectanglelabels",
                   "value": {
                       "height": (row[3].item() - row[1].item()) * 100,
-                      "rectanglelabels": ["leaf"],
+                      "rectanglelabels": [label],
                       "rotation": 0,
                       "width": (row[2].item() - row[0].item()) * 100,
                       "x": row[0].item() * 100,

@@ -1,0 +1,10 @@
+raw_data/
+raw_data_only_leaf/
+dataset/
+runs/
+raw_data_2_class/
+fdata/
+aledata/
+fdata_raw/
+dataset_2_class/
+dataset_only_leaf/

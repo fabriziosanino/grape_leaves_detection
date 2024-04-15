@@ -1,7 +1,9 @@
 from ultralyticsplus import YOLO
 
-model = YOLO("foduucom/plant-leaf-detection-and-classification")
+if __name__=="__main__":
 
-results = model.train(data="conf.yaml", epochs=10)
+    model = YOLO("foduucom/plant-leaf-detection-and-classification")
 
-# The trained model will be saved into the folder 'runs/detect/train/weights'
+    results = model.train(data="conf.yaml", epochs=1000)
+
+    # The trained model will be saved into the folder 'runs/detect/train/weights'
