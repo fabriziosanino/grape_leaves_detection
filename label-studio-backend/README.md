@@ -3,7 +3,7 @@
 ## Start backend (model.py)
 1. Insert into the path *data/server/models/* the model that the backend should use
 2. Modify the **MODEL_FILE_NAME** constants with the name of the model file
-3. In the *docker-compose.yaml* set **LABEL_STUDIO_URL** and **LABEL_STUDIO_API_KEY** with the proper values. For the **LABEL_STUDIO_API_KEY** you need to go in your label-studio Account&Settings and get the Access Token
+3. In the *docker-compose.yaml* set **LABEL_STUDIO_URL** (*http://ip_of_your_pc:port*) and **LABEL_STUDIO_API_KEY** with the proper values. For the **LABEL_STUDIO_API_KEY** you need to go in your label-studio Account&Settings and get the Access Token
 4. Run *docker-compose up* for create and execute the container
 
 (!) If you want to modify something, you need to delete the container and the image, then perform 3. Also, you have to insert the correct requirements in the *requirements.txt* folder
