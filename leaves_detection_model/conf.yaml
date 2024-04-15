@@ -1,5 +1,5 @@
 #path: C:\Users\fabri\Desktop\Fabry\5 Uni\TESI\lm-thesis\object_detection\dataset
-path: RELATIVE_PATH_TO_dataset_FOLDER
+path: "C:\Users\Alessandro Pecora\OneDrive - Politecnico di Torino\\progetti\DIVINE\label_studio_model\grape_leaves_detection\leaves_detection_model\dataset"
 train: images/train
 val: images/val
 
