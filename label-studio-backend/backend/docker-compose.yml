@@ -27,7 +27,7 @@ services:
       # Do not use 'localhost' as it does not work within Docker containers.
       # Use prefix 'http://' or 'https://' for the URL always.
       # Determine the actual IP using 'ifconfig' (Linux/Mac) or 'ipconfig' (Windows).
-      - LABEL_STUDIO_URL=http://192.168.1.9:32768/
+      - LABEL_STUDIO_URL=http://10.136.6.29:32769/
       - LABEL_STUDIO_API_KEY=0ca1272b59046ed8e5c7643ab98ecf5c97a1ea3a
     ports:
       - "9090:9090"

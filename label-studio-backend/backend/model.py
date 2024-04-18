@@ -18,7 +18,7 @@ from ultralyticsplus import YOLO
 </View>
 """
 
-MODEL_FILE_NAME = "best.pt"
+MODEL_FILE_NAME = "best_multiclass.pt"
 
 class NewModel(LabelStudioMLBase):
     """Custom ML Backend model
@@ -38,7 +38,7 @@ class NewModel(LabelStudioMLBase):
 
         self.model = model
 
-        self.set("model_version", "0.0.2")
+        self.set("model_version", "0.0.3")
 
     def predict(self, tasks: List[Dict], context: Optional[Dict] = None, **kwargs):
         """ Write your inference logic here
@@ -58,8 +58,8 @@ class NewModel(LabelStudioMLBase):
 
         predictions = []
         for task in tasks:
-          prediction = self.predict_one_task(task)
-          predictions.append(prediction)
+            prediction = self.predict_one_task(task)
+            predictions.append(prediction)
 
         # example for resource downloading from Label Studio instance,
         # you need to set env vars LABEL_STUDIO_URL and LABEL_STUDIO_API_KEY
@@ -83,7 +83,7 @@ class NewModel(LabelStudioMLBase):
         return predictions
 
     def predict_one_task(self, task: Dict):
-        path = self.get_local_path(task["data"]["image"], task_id=task["id"])
+        """path = self.get_local_path(task["data"]["image"], task_id=task["id"])
 
         model_results = self.model.predict(path)
         results = []
@@ -116,8 +116,47 @@ class NewModel(LabelStudioMLBase):
 
         avg_score = sum(all_scores) / max(len(all_scores), 1)
 
-        return {"result": results, "score": avg_score, "model_version": self.get("model_version")}
+        return {"result": results, "score": avg_score, "model_version": self.get("model_version")}"""
 
+        path = self.get_local_path(task["data"]["image"], task_id=task["id"])
+
+        model_results = self.model.predict(path)
+        #print(model_results)
+        results = []
+        all_scores = []
+
+        for i, row in enumerate(model_results[0].boxes.xyxyn):
+            label = model_results[0].names[int(model_results[0].boxes.cls[i].item())]
+            score = float(model_results[0].boxes.conf[i].item())
+            results.append(
+                {
+                    "from_name": "label",
+                    "source": "$image",
+                    "to_name": "image",
+                    "type": "rectanglelabels",
+                    "value": {
+                        "height": (row[3].item() - row[1].item()) * 100,
+                        "rectanglelabels": [label],
+                        "rotation": 0,
+                        "width": (row[2].item() - row[0].item()) * 100,
+                        "x": row[0].item() * 100,
+                        "y": row[1].item() * 100,
+                    },
+                    "score": score,
+                }
+            )
+
+            all_scores.append(score)
+
+            i += 1
+
+        avg_score = sum(all_scores) / max(len(all_scores), 1)
+
+        return {
+            "result": results,
+            "score": avg_score,
+            "model_version": self.get("model_version"),
+        }
 
     def fit(self, event, data, **kwargs):
         """

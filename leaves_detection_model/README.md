@@ -16,4 +16,18 @@
 1. Set **MODEL_PATH** constant 
 2. Set **image** path in which to set the bboxes
 
+## Annotate very simple images. The output is in YOLO format (annotation_YOLO_format.py)
+![Image example](./readme_example/0a06c482-c94a-44d8-a895-be6fe17b8c06___FAM_B.Rot%205019.JPG) 
+
+This script can be used only with very simple images (like a leaf with a static background) in which the leaf 
+are already classified but they need to have a box on it. The images need to be classified into the folder 
+(i.e. esca folder -> only images classified as esca). The model write a box on the leaf, then the label 
+is assotiated staticaly based on the classification done. 
+1. Set **MODEL_PATH** constant. The model must only create bbox on leaves, the classification is not needed
+2. Set the *images_dirs_and_label* variabile with:
+  - **dir**: path to the directory that contains images of a specific class
+  - **lbl**: integer label to associate to that class
+  - **result_folder_path**: path to the directory that will contains the annotations. The folder struct follows the images one
+
+
 
